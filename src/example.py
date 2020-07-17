@@ -10,8 +10,10 @@ def main():
 
     # initialize object
     slr = SimpleLinearRegression()
+
     # fit simple linear regression
     slr.fit(X, y)
+
     # predict
     preds = slr.predict(np.array([700, 850, 1200]))
     print("Preds: ", preds)
