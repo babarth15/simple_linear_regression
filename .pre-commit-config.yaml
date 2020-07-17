@@ -1,4 +1,3 @@
-# The  older where your airflow pipelines live, most likely a
 repos:
 -   repo: https://github.com/psf/black
     rev: stable

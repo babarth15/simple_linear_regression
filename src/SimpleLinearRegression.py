@@ -4,7 +4,8 @@ from scipy import stats
 
 class SimpleLinearRegression:
     """
-    This is a class for fitting/predicting data using ordinary least squares for simple linear regress with model and coefficient summaries.
+    This is a class for fitting/predicting data using ordinary least squares for simple linear regress with model and
+    coefficient summaries.
 
     Attributes:
         intercept_ : float
@@ -12,9 +13,11 @@ class SimpleLinearRegression:
         coefficient_ : float
             Estimated coefficient or slope of the regression fit; default is NAN prior to calling fit method.
         coefficient_metrics : dict
-            Dictionary of model metrics including standard error, t-statistic, and p-value; default is an empty dictionary prior to calling fit method.
+            Dictionary of model metrics including standard error, t-statistic, and p-value; default is an empty
+            dictionary prior to calling fit method.
         model_metrics : dict
-            Dictionary of coefficient metrics including residual standard error, r-squared, and adjusted r-squared; default is an empty dictionary prior to calling fit method.
+            Dictionary of coefficient metrics including residual standard error, r-squared, and adjusted r-squared;
+            default is an empty dictionary prior to calling fit method.
     """
 
     def __init__(self):
@@ -28,7 +31,8 @@ class SimpleLinearRegression:
 
     def fit(self, X, y):
         """
-        Fits the simple linear regression model using ordinary least squares and initializes both model_metrics / coefficient metrics.
+        Fits the simple linear regression model using ordinary least squares and initializes both model_metrics /
+        coefficient metrics.
         Parameters
         ----------
         X : 1darray
@@ -39,8 +43,10 @@ class SimpleLinearRegression:
         -------
             None
         """
-        self.coefficient_ = np.sum((X - np.mean(X)) * (y - np.mean(y))) / np.sum((X - np.mean(X)) ** 2)
-        self.intercept_ = np.mean(y) - (b_1 * np.mean(X))
+        self.coefficient_ = np.sum((X - np.mean(X)) * (y - np.mean(y))) / np.sum(
+            (X - np.mean(X)) ** 2
+        )
+        self.intercept_ = np.mean(y) - (self.coefficient_ * np.mean(X))
         self.calculate_model_metrics(X, y)
         self.calculate_coefficient_metrics(X, y)
 
@@ -83,24 +89,30 @@ class SimpleLinearRegression:
         # p-value
         pval = stats.t.sf(np.abs(coeff_tstat), X.shape[0] - 1) * 2
         # add to dict
-        self.coefficient_metrics['coefficient'] = {'coefficient': round(self.coefficient_, 3),
-                                                   'se': round(coeff_se, 3),
-                                                   't-stat': round(coeff_tstat, 3),
-                                                   'p-val': round(pval, 3)}
+        self.coefficient_metrics["coefficient"] = {
+            "coefficient": round(self.coefficient_, 3),
+            "se": round(coeff_se, 3),
+            "t-stat": round(coeff_tstat, 3),
+            "p-val": round(pval, 3),
+        }
 
         # intercept se
         inter_num = (1 / (X.shape[0] - 2)) + np.mean(X) ** 2
         inter_den = np.sum((X - np.mean(X)) ** 2)
-        inter_se = np.sqrt((coeff_num * ((1 / (X.shape[0] - 2)) + (inter_num / inter_den))))
+        inter_se = np.sqrt(
+            (coeff_num * ((1 / (X.shape[0] - 2)) + (inter_num / inter_den)))
+        )
         # intercept tval
         inter_tstat = self.intercept_ / inter_se
         # p-value
         pval = stats.t.sf(np.abs(inter_tstat), X.shape[0] - 1) * 2
         # add to dict
-        self.coefficient_metrics['intercept'] = {'coefficient': round(self.intercept_, 3),
-                                                 'se': round(inter_se, 3),
-                                                 't-stat': round(inter_tstat, 3),
-                                                 'p-val': round(pval, 3)}
+        self.coefficient_metrics["intercept"] = {
+            "coefficient": round(self.intercept_, 3),
+            "se": round(inter_se, 3),
+            "t-stat": round(inter_tstat, 3),
+            "p-val": round(pval, 3),
+        }
 
     def calculate_model_metrics(self, X, y):
         """
@@ -119,13 +131,13 @@ class SimpleLinearRegression:
         y_hat = self.predict(X)
         rss = np.sum((y - y_hat) ** 2)
         rse = np.sqrt((1 / (y.shape[0] - 2)) * rss)
-        self.model_metrics['rse'] = round(rse, 3)
+        self.model_metrics["rse"] = round(rse, 3)
 
         # R_2
         tss = np.sum((y - np.mean(y)) ** 2)
         r_2 = (tss - rss) / tss
-        self.model_metrics['r_2'] = round(r_2, 3)
+        self.model_metrics["r_2"] = round(r_2, 3)
 
         # Adjusted R_2
         adj_r_2 = 1 - (1 - r_2) * (X.shape[0] - 1) / (X.shape[0] - 1 - 1)
-        self.model_metrics['adj_r_2'] = round(adj_r_2, 3)
+        self.model_metrics["adj_r_2"] = round(adj_r_2, 3)
