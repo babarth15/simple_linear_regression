@@ -125,17 +125,17 @@ class SimpleLinearRegression:
         -------
             None
         """
-        # RSE
+        # rse
         y_hat = self.predict(X)
         rss = np.sum((y - y_hat) ** 2)
         rse = np.sqrt((1 / (y.shape[0] - 2)) * rss)
         self.model_metrics["rse"] = round(rse, 2)
 
-        # R_2
+        # r_2
         tss = np.sum((y - np.mean(y)) ** 2)
         r_2 = (tss - rss) / tss
         self.model_metrics["r_2"] = round(r_2, 2)
 
-        # Adjusted R_2
+        # adjusted r_2
         adj_r_2 = 1 - (1 - r_2) * (X.shape[0] - 1) / (X.shape[0] - 1 - 1)
         self.model_metrics["adj_r_2"] = round(adj_r_2, 2)
