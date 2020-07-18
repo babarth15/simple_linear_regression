@@ -13,5 +13,5 @@ Please reference example.py for example use cases of package
 
 ### References
 
-References used were Introduction to Statistical Learning and StatQuest
+Introduction to Statistical Learning and StatQuest
 
