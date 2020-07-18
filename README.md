@@ -9,7 +9,7 @@ The equations used to derive the intercept and coefficient estimates are below:
 
 ### Usage
 
-Please reference example.py for example use cases of package
+Please reference example.py for example use cases
 
 ### References
 
