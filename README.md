@@ -11,7 +11,7 @@ The equations used to derive the intercept and coefficient estimates are below:
 
 ![image](https://user-images.githubusercontent.com/64760937/87862411-a4ca6080-c904-11ea-8196-38091cc1ce6c.png)
 
-This example can be found in $src/simple_linear_regression/example.py$
+This example can be found in src/simple_linear_regression/example.py
 
 ### References
 
