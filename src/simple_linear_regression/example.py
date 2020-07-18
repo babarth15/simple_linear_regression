@@ -15,8 +15,7 @@ def main():
     slr.fit(X, y)
 
     # predict
-    preds = slr.predict(np.array([700, 850, 1200]))
-    print("Predictions: ", preds)
+    print(slr.predict(np.array([700, 850, 1200])))
 
     # print metrics
     print(slr.coefficient_metrics)

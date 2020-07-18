@@ -113,15 +113,12 @@ def test_calculate_coefficient_metrics_method(X, y):
     model = sm.OLS(y, x1).fit()
     slr = SimpleLinearRegression()
     slr.fit(X, y)
-    assert (
-        round(model.params[0], 2) == slr.coefficient_metrics["intercept"]["coefficient"]
-    )
+    assert round(model.params[0], 2) == slr.coefficient_metrics["intercept"]["estimate"]
     assert round(model.bse[0], 2) == slr.coefficient_metrics["intercept"]["se"]
     assert round(model.tvalues[0], 2) == slr.coefficient_metrics["intercept"]["t-stat"]
     assert round(model.pvalues[0], 2) == slr.coefficient_metrics["intercept"]["p-val"]
     assert (
-        round(model.params[1], 2)
-        == slr.coefficient_metrics["coefficient"]["coefficient"]
+        round(model.params[1], 2) == slr.coefficient_metrics["coefficient"]["estimate"]
     )
     assert round(model.bse[1], 2) == slr.coefficient_metrics["coefficient"]["se"]
     assert (

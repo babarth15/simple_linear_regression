@@ -90,7 +90,7 @@ class SimpleLinearRegression:
         pval = stats.t.sf(np.abs(coeff_tstat), X.shape[0] - 1) * 2
         # add to dict
         self.coefficient_metrics["coefficient"] = {
-            "coefficient": round(self.coefficient_, 2),
+            "estimate": round(self.coefficient_, 2),
             "se": round(coeff_se, 2),
             "t-stat": round(coeff_tstat, 2),
             "p-val": round(pval, 2),
@@ -106,7 +106,7 @@ class SimpleLinearRegression:
         pval = stats.t.sf(np.abs(inter_tstat), X.shape[0] - 2) * 2
         # add to dict
         self.coefficient_metrics["intercept"] = {
-            "coefficient": round(self.intercept_, 2),
+            "estimate": round(self.intercept_, 2),
             "se": round(inter_se, 2),
             "t-stat": round(inter_tstat, 2),
             "p-val": round(pval, 2),
