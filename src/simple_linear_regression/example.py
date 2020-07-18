@@ -16,7 +16,7 @@ def main():
 
     # predict
     preds = slr.predict(np.array([700, 850, 1200]))
-    print("Preds: ", preds)
+    print("Predictions: ", preds)
 
     # print metrics
     print(slr.coefficient_metrics)

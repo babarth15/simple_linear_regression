@@ -90,28 +90,26 @@ class SimpleLinearRegression:
         pval = stats.t.sf(np.abs(coeff_tstat), X.shape[0] - 1) * 2
         # add to dict
         self.coefficient_metrics["coefficient"] = {
-            "coefficient": round(self.coefficient_, 3),
-            "se": round(coeff_se, 3),
-            "t-stat": round(coeff_tstat, 3),
-            "p-val": round(pval, 3),
+            "coefficient": round(self.coefficient_, 2),
+            "se": round(coeff_se, 2),
+            "t-stat": round(coeff_tstat, 2),
+            "p-val": round(pval, 2),
         }
 
         # intercept se
-        inter_num = (1 / (X.shape[0] - 2)) + np.mean(X) ** 2
+        inter_num = (1 / (X.shape[0])) + np.mean(X) ** 2
         inter_den = np.sum((X - np.mean(X)) ** 2)
-        inter_se = np.sqrt(
-            (coeff_num * ((1 / (X.shape[0] - 2)) + (inter_num / inter_den)))
-        )
+        inter_se = np.sqrt((coeff_num * ((1 / (X.shape[0])) + (inter_num / inter_den))))
         # intercept tval
         inter_tstat = self.intercept_ / inter_se
         # p-value
-        pval = stats.t.sf(np.abs(inter_tstat), X.shape[0] - 1) * 2
+        pval = stats.t.sf(np.abs(inter_tstat), X.shape[0] - 2) * 2
         # add to dict
         self.coefficient_metrics["intercept"] = {
-            "coefficient": round(self.intercept_, 3),
-            "se": round(inter_se, 3),
-            "t-stat": round(inter_tstat, 3),
-            "p-val": round(pval, 3),
+            "coefficient": round(self.intercept_, 2),
+            "se": round(inter_se, 2),
+            "t-stat": round(inter_tstat, 2),
+            "p-val": round(pval, 2),
         }
 
     def calculate_model_metrics(self, X, y):
@@ -131,13 +129,13 @@ class SimpleLinearRegression:
         y_hat = self.predict(X)
         rss = np.sum((y - y_hat) ** 2)
         rse = np.sqrt((1 / (y.shape[0] - 2)) * rss)
-        self.model_metrics["rse"] = round(rse, 3)
+        self.model_metrics["rse"] = round(rse, 2)
 
         # R_2
         tss = np.sum((y - np.mean(y)) ** 2)
         r_2 = (tss - rss) / tss
-        self.model_metrics["r_2"] = round(r_2, 3)
+        self.model_metrics["r_2"] = round(r_2, 2)
 
         # Adjusted R_2
         adj_r_2 = 1 - (1 - r_2) * (X.shape[0] - 1) / (X.shape[0] - 1 - 1)
-        self.model_metrics["adj_r_2"] = round(adj_r_2, 3)
+        self.model_metrics["adj_r_2"] = round(adj_r_2, 2)
