@@ -5,3 +5,5 @@
 .vscode/
 *.csv
 .idea/
+src/__pycache__/*
+
